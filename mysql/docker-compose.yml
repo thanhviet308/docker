@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+    ports:
+      - "3307:3306"  # Đổi cổng host thành 3307 để tránh xung đột
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: "123456"
+    ports:
+      - "8081:80"  # Truy cập phpMyAdmin trên cổng 8081
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
