@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongodb:
     image: mongo:5.0.15
@@ -12,22 +10,22 @@ services:
     volumes:
       - mongodb_data_container:/data/db
 
-  adminmongo:
-    image: mrvautin/adminmongo
-    container_name: adminmongo
-    restart: unless-stopped
-    ports:
-      - "9090:1234" # Truy cập tại http://localhost:9090
+  #
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mexpress
     environment:
-      - HOST=0.0.0.0
-    volumes:
-      - adminmongo_data:/config
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_URL=mongodb://root:123456@mongodb:27017/?authSource=admin
+      - ME_CONFIG_BASICAUTH_USERNAME=user
+      - ME_CONFIG_BASICAUTH_PASSWORD=123456
     depends_on:
       - mongodb
-
+    restart: unless-stopped
+    ports:
+      - "9000:8081"
+#
 volumes:
   mongodb_data_container:
-  adminmongo_data:
 
- # docker compose -p mongodb up -d
- # mongodb://root:123456@localhost:27018/
+    # docker compose -p mongodb up -d
