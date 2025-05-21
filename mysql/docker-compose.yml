@@ -4,26 +4,29 @@ services:
   mysql:
     image: mysql:8
     container_name: mysql
-    restart: unless-stopped
+    restart: no
     environment:
       MYSQL_ROOT_PASSWORD: "123456"
     ports:
-      - "3307:3306"  # Đổi cổng host thành 3307 để tránh xung đột
+      - "3306:3306"  
+
     volumes:
       - mysql_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
-    restart: unless-stopped
+    restart: no
     environment:
       PMA_HOST: mysql
       PMA_USER: root
       PMA_PASSWORD: "123456"
     ports:
-      - "8081:80"  # Truy cập phpMyAdmin trên cổng 8081
+      - "8080:80"  
+
     depends_on:
       - mysql
 
 volumes:
   mysql_data:
+## sudo docker compose -p mysql up -d
