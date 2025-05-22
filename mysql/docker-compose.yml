@@ -15,7 +15,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+    container_name: myadmin
     restart: no
     environment:
       PMA_HOST: mysql

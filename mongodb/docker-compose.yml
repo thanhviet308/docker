@@ -12,7 +12,7 @@ services:
 
   mongo-express:
     image: mongo-express:latest
-    container_name: express
+    container_name: mexpress
     environment:
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
       - ME_CONFIG_MONGODB_URL=mongodb://root:123456@mongodb:27017/?authSource=admin
